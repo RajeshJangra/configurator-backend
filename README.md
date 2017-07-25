@@ -1,23 +1,25 @@
-## Car Configurator Search Utility
+## Configurator Search Utility
 
-Ths utility has a rest api where you can search car by model information. The information is cached first time 
-and subsequently fetched from redis cache.
+This utility has a rest api where you can search car by various parameters. The information is served from redis cache.
 
 #### Search
-The application will search by search parameter in following fields (partial or full)
+Application will fetch all records by matching(partial or full) search parameter with following fields
 - Model Id, 
 - Name, 
 - Class Name, 
 - Body Name
 
-All the records thus fetched will be collected and duplicates will be removed
+All records thus fetched will be collected and duplicates will be removed
 
-- Api Url: http://<host_name>:<port>/search/<search_param>
+- Api Url: ** GET ** http://<host_name>:<port>/search/<search_param>
 e.g. http://localhost:8080/search/205
 
 #### Warming the cache
-http://<host_name>:<port>/search/<name>
-e.g. http://localhost:8080/search/205066_000
+Application will fetch data from corpinter service and save information in redis.
+- Api Url: ** PUT ** http://<host_name>:<port>/cache
+e.g. http://localhost:8080/cache
 
-http://<host_name>:<port>/search/<model_id_partial>
-e.g. http://localhost:8080/search/5066
+#### Clearing the cache
+Application will clear data from redis.
+- Api Url: ** DEL ** http://<host_name>:<port>/cache
+e.g. http://localhost:8080/cache
