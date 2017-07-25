@@ -1,4 +1,4 @@
-package com.daimler.configuratorbackend.service;
+package com.daimler.configurator.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;

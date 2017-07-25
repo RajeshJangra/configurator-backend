@@ -1,6 +1,6 @@
-package com.daimler.configuratorbackend.exception
+package com.daimler.configurator.exception
 
-import com.daimler.configuratorbackend.constant.AppConstants.MODEL_NOT_FOUND
+import com.daimler.configurator.constant.AppConstants.MODEL_NOT_FOUND
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.ControllerAdvice

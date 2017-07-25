@@ -1,4 +1,4 @@
-package com.daimler.configuratorbackend.entity
+package com.daimler.configurator.entity
 
 import java.io.Serializable
 import java.util.*

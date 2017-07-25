@@ -1,7 +1,7 @@
-package com.daimler.configuratorbackend.service
+package com.daimler.configurator.service
 
-import com.daimler.configuratorbackend.entity.VehicleModel
-import com.daimler.configuratorbackend.exception.ModelNotFoundException
+import com.daimler.configurator.entity.VehicleModel
+import com.daimler.configurator.exception.ModelNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 

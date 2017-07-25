@@ -1,7 +1,7 @@
-package com.daimler.configuratorbackend.controller
+package com.daimler.configurator.controller
 
-import com.daimler.configuratorbackend.entity.VehicleModel
-import com.daimler.configuratorbackend.service.SearchService
+import com.daimler.configurator.entity.VehicleModel
+import com.daimler.configurator.service.SearchService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable

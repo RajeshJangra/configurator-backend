@@ -1,11 +1,11 @@
-package com.daimler.configuratorbackend
+package com.daimler.configurator
 
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 
 @SpringBootApplication
-class ConfiguratorBackendApplication
+class ConfiguratorApp
 
 fun main(args: Array<String>) {
-    SpringApplication.run(ConfiguratorBackendApplication::class.java, *args)
+    SpringApplication.run(ConfiguratorApp::class.java, *args)
 }

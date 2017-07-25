@@ -1,6 +1,6 @@
-package com.daimler.configuratorbackend.controller
+package com.daimler.configurator.controller
 
-import com.daimler.configuratorbackend.service.CacheService
+import com.daimler.configurator.service.CacheService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PutMapping

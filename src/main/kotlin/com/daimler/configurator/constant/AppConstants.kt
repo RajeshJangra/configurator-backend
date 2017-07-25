@@ -1,4 +1,4 @@
-package com.daimler.configuratorbackend.constant
+package com.daimler.configurator.constant
 
 object AppConstants {
     const val MODEL_NOT_FOUND = "No Such Vehicle Model"

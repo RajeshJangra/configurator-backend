@@ -1,10 +1,10 @@
-package com.daimler.configuratorbackend.service
+package com.daimler.configurator.service
 
-import com.daimler.configuratorbackend.constant.AppConstants.CACHE_BUILT_SUCCESS
-import com.daimler.configuratorbackend.constant.AppConstants.CACHE_CLEARED_SUCCESSFULLY
-import com.daimler.configuratorbackend.constant.AppConstants.WILDCARD
-import com.daimler.configuratorbackend.constant.CacheKey.*
-import com.daimler.configuratorbackend.entity.VehicleModel
+import com.daimler.configurator.constant.AppConstants.CACHE_BUILT_SUCCESS
+import com.daimler.configurator.constant.AppConstants.CACHE_CLEARED_SUCCESSFULLY
+import com.daimler.configurator.constant.AppConstants.WILDCARD
+import com.daimler.configurator.constant.CacheKey.*
+import com.daimler.configurator.entity.VehicleModel
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.data.redis.connection.RedisConnection
