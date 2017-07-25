@@ -5,3 +5,4 @@ cor:
 redis:
   host: localhost
   port: 6379
+  timeToLive: 86400

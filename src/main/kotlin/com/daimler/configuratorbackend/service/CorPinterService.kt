@@ -10,25 +10,12 @@ import org.springframework.web.client.RestTemplate
 class CorPinterService {
 
     @Value("\${cor.pinter.url}")
-    private val corPinterUrl: String? = null
+    lateinit var corPinterUrl: String
 
     @Autowired
-    private val restTemplate: RestTemplate? = null
+    lateinit var restTemplate: RestTemplate
 
-    @Autowired
-    private val cacheService: CacheService? = null
-
-    fun getVehicleModelData(modelId: String): VehicleModel {
-        var vehicleModel = cacheService?.getValue(modelId)
-        if (vehicleModel == null) {
-            val vehicleModels = restTemplate!!.getForObject(corPinterUrl, Array<VehicleModel>::class.java)
-            vehicleModels.forEach {
-                cacheService?.add(it.modelId!!, it)
-                if (it.modelId == modelId) {
-                    vehicleModel = it
-                }
-            }
-        }
-        return vehicleModel as VehicleModel
+    fun getVehicleModelData(): Array<VehicleModel> {
+        return restTemplate.getForObject(corPinterUrl, Array<VehicleModel>::class.java)
     }
 }
