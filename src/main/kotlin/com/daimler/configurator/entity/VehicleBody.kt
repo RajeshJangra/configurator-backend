@@ -9,7 +9,7 @@ class VehicleBody : Serializable {
 
     override fun toString(): String {
         return "VehicleBody(bodyId=$bodyId, " +
-                "bodyName=$bodyName, " +
-                "links=$links)"
+            "bodyName=$bodyName, " +
+            "links=$links)"
     }
 }

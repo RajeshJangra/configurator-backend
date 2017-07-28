@@ -17,15 +17,15 @@ class VehicleModel : Serializable {
 
     override fun toString(): String {
         return "VehicleModel(modelId=$modelId, " +
-                "name=$name, " +
-                "shortName=$shortName, " +
-                "baumuster=$baumuster, " +
-                "nationalSalesType=$nationalSalesType, " +
-                "vehicleClass=$vehicleClass, " +
-                "vehicleBody=$vehicleBody, " +
-                "priceInformation=$priceInformation, " +
-                "productGroup=$productGroup, " +
-                "dataSupply=$dataSupply, " +
-                "links=$links)"
+            "name=$name, " +
+            "shortName=$shortName, " +
+            "baumuster=$baumuster, " +
+            "nationalSalesType=$nationalSalesType, " +
+            "vehicleClass=$vehicleClass, " +
+            "vehicleBody=$vehicleBody, " +
+            "priceInformation=$priceInformation, " +
+            "productGroup=$productGroup, " +
+            "dataSupply=$dataSupply, " +
+            "links=$links)"
     }
 }

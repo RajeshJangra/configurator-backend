@@ -4,12 +4,12 @@ import com.daimler.configurator.entity.VehicleModel
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer
 import org.springframework.data.redis.serializer.StringRedisSerializer
 import org.springframework.web.client.RestTemplate
-
 
 @Configuration
 class AppConfig {
@@ -30,20 +30,18 @@ class AppConfig {
         return template
     }
 
-/*    @Bean
-    fun stringRedisTemplate(jedisConnectionFactory: JedisConnectionFactory): StringRedisTemplate {
-        val template = StringRedisTemplate()
-        template.connectionFactory = jedisConnectionFactory
-        return template
-    }*/
-
     @Bean
     fun jedisConnectionFactory(): JedisConnectionFactory {
-        val connectionFactory = JedisConnectionFactory()
-        connectionFactory.hostName = redisHost
-        connectionFactory.port = redisPort
-        connectionFactory.usePool = true
+        val connectionFactory = JedisConnectionFactory(redisStandaloneConfiguration())
         return connectionFactory
+    }
+
+    @Bean
+    fun redisStandaloneConfiguration(): RedisStandaloneConfiguration {
+        val config = RedisStandaloneConfiguration()
+        config.hostName = redisHost
+        config.port = redisPort
+        return config
     }
 
     @Bean

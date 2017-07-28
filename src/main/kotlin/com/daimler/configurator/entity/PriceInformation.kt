@@ -11,8 +11,8 @@ class PriceInformation : Serializable {
 
     override fun toString(): String {
         return "PriceInformation(price=$price, " +
-                "netPrice=$netPrice, " +
-                "currency=$currency, " +
-                "taxes=${Arrays.toString(taxes)})"
+            "netPrice=$netPrice, " +
+            "currency=$currency, " +
+            "taxes=${Arrays.toString(taxes)})"
     }
 }

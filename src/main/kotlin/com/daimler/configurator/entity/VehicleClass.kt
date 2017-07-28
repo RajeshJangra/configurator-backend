@@ -9,7 +9,7 @@ class VehicleClass : Serializable {
 
     override fun toString(): String {
         return "VehicleClass(classId=$classId, " +
-                "className=$className, " +
-                "links=$links)"
+            "className=$className, " +
+            "links=$links)"
     }
 }

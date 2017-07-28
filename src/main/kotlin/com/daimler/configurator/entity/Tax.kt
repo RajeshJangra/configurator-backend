@@ -11,9 +11,9 @@ class Tax : Serializable {
 
     override fun toString(): String {
         return "Tax(id=$id, " +
-                "amount=$amount, " +
-                "baseAmount=$baseAmount, " +
-                "charge=$charge, " +
-                "rate=$rate)"
+            "amount=$amount, " +
+            "baseAmount=$baseAmount, " +
+            "charge=$charge, " +
+            "rate=$rate)"
     }
 }

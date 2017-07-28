@@ -8,13 +8,10 @@ import com.daimler.configurator.entity.VehicleModel
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.data.redis.connection.RedisConnection
-import org.springframework.data.redis.core.Cursor
-import org.springframework.data.redis.core.RedisTemplate
-import org.springframework.data.redis.core.ScanOptions
+import org.springframework.data.redis.core.*
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer
 import org.springframework.stereotype.Service
 import java.util.*
-
 
 @Service
 class CacheService {
@@ -27,64 +24,43 @@ class CacheService {
     @Value("\${redis.timeToLive}")
     private val timeToLive: Long = 86400
 
-
-    fun addToCache(vehicleModels: Array<VehicleModel>) {
+    fun buildCache(): String {
+        val vehicleModels = corPinterService.getVehicleModelData()
         redisTemplate.executePipelined({ connection ->
             Arrays.stream(vehicleModels).forEach {
-                addByModelId(connection, it)
-                addByName(connection, it)
-                addByClassName(connection, it)
-                addByBodyName(connection, it)
+                addToCache(connection, it, it.modelId?.toByteArray(), MODEL_ID.toString().toByteArray())
+                addToCache(connection, it, it.name?.toByteArray(), NAME.toString().toByteArray())
+                addToCache(connection, it, it.vehicleClass?.className?.toByteArray(), CLASS_NAME.toString().toByteArray())
+                addToCache(connection, it, it.vehicleBody?.bodyName?.toByteArray(), BODY_NAME.toString().toByteArray())
             }
             null
         })
+        return CACHE_BUILT_SUCCESS
     }
 
-    private fun addByModelId(connection: RedisConnection, it: VehicleModel) {
-        connection.hashCommands().hSet(MODEL_ID.toString().toByteArray(), it.modelId?.toByteArray(), Jackson2JsonRedisSerializer(VehicleModel::class.java).serialize(it))
-        connection.expire(it.modelId?.toByteArray(), timeToLive)
+    private fun addToCache(connection: RedisConnection, it: VehicleModel, key: ByteArray?, collectionName: ByteArray) {
+        connection.hashCommands().hSet(collectionName, key, Jackson2JsonRedisSerializer(VehicleModel::class.java).serialize(it))
+        connection.expire(key, timeToLive)
     }
 
-    private fun addByName(connection: RedisConnection, it: VehicleModel) {
-        connection.hashCommands().hSet(NAME.toString().toByteArray(), it.name?.toByteArray(), Jackson2JsonRedisSerializer(VehicleModel::class.java).serialize(it))
-        connection.expire(it.name?.toByteArray(), timeToLive)
-    }
-
-    private fun addByClassName(connection: RedisConnection, it: VehicleModel) {
-        connection.hashCommands().hSet(CLASS_NAME.toString().toByteArray(), it.vehicleClass?.className?.toByteArray(), Jackson2JsonRedisSerializer(VehicleModel::class.java).serialize(it))
-        connection.expire(it.vehicleClass?.className?.toByteArray(), timeToLive)
-    }
-
-    private fun addByBodyName(connection: RedisConnection, it: VehicleModel) {
-        connection.hashCommands().hSet(BODY_NAME.toString().toByteArray(), it.vehicleBody?.bodyName?.toByteArray(), Jackson2JsonRedisSerializer(VehicleModel::class.java).serialize(it))
-        connection.expire(it.vehicleBody?.bodyName?.toByteArray(), timeToLive)
+    fun clearCache(): String {
+        redisTemplate.execute { it.serverCommands().flushAll() }
+        return CACHE_CLEARED_SUCCESSFULLY
     }
 
     fun search(key: String): Set<VehicleModel>? {
         val result = HashSet<VehicleModel>()
         redisTemplate.execute { redisConnection ->
-            result.addAll(addEntriesToSet(getByModelId(key, redisConnection)))
-            result.addAll(addEntriesToSet(getByName(key, redisConnection)))
-            result.addAll(addEntriesToSet(getByClassName(key, redisConnection)))
-            result.addAll(addEntriesToSet(getByBodyName(key, redisConnection)))
+            result.addAll(addEntriesToSet(getFromCache(key, MODEL_ID.toString().toByteArray(), redisConnection)))
+            result.addAll(addEntriesToSet(getFromCache(key, NAME.toString().toByteArray(), redisConnection)))
+            result.addAll(addEntriesToSet(getFromCache(key, CLASS_NAME.toString().toByteArray(), redisConnection)))
+            result.addAll(addEntriesToSet(getFromCache(key, BODY_NAME.toString().toByteArray(), redisConnection)))
         }
         return result
     }
 
-    private fun getByModelId(key: String, redisConnection: RedisConnection): Cursor<MutableMap.MutableEntry<ByteArray, ByteArray>>? {
-        return redisConnection.hScan(MODEL_ID.toString().toByteArray(), scanOptions(key))
-    }
-
-    private fun getByName(key: String, redisConnection: RedisConnection): Cursor<MutableMap.MutableEntry<ByteArray, ByteArray>>? {
-        return redisConnection.hScan(NAME.toString().toByteArray(), scanOptions(key))
-    }
-
-    private fun getByClassName(key: String, redisConnection: RedisConnection): Cursor<MutableMap.MutableEntry<ByteArray, ByteArray>>? {
-        return redisConnection.hScan(CLASS_NAME.toString().toByteArray(), scanOptions(key))
-    }
-
-    private fun getByBodyName(key: String, redisConnection: RedisConnection): Cursor<MutableMap.MutableEntry<ByteArray, ByteArray>>? {
-        return redisConnection.hScan(BODY_NAME.toString().toByteArray(), scanOptions(key))
+    private fun getFromCache(key: String, collectionName: ByteArray, redisConnection: RedisConnection): Cursor<MutableMap.MutableEntry<ByteArray, ByteArray>>? {
+        return redisConnection.hScan(collectionName, scanOptions(key))
     }
 
     private fun scanOptions(key: String): ScanOptions? {
@@ -101,14 +77,4 @@ class CacheService {
     }
 
     private fun getPattern(key: String) = WILDCARD + key + WILDCARD
-
-    fun clearCache(): String {
-        redisTemplate.execute { it.serverCommands().flushAll() }
-        return CACHE_CLEARED_SUCCESSFULLY
-    }
-
-    fun buildCache(): String {
-        addToCache(corPinterService.getVehicleModelData())
-        return CACHE_BUILT_SUCCESS
-    }
 }

@@ -1,4 +1,4 @@
-package com.daimler.configuratorbackend
+package com.daimler.configurator
 
 import org.junit.Test
 import org.junit.runner.RunWith
