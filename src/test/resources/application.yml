@@ -1,0 +1,8 @@
+cor:
+  pinter:
+    url: https://api.corpinter.net/embccs/api/v1/markets/de_DE/dataversion/494bf39d/models
+
+redis:
+  host: localhost
+  port: 6378
+  timeToLive: 86400

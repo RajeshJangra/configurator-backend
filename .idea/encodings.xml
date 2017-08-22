@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/../../DevBootCamp/bootcamp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DevBootCamp/ecom-be" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DevBootCamp/shopping-app" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DevBootCamp/tut-react-and-spring-data-rest/basic" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DevBootCamp/tut-react-and-spring-data-rest/conditional" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DevBootCamp/tut-react-and-spring-data-rest/events" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DevBootCamp/tut-react-and-spring-data-rest/hypermedia" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DevBootCamp/tut-react-and-spring-data-rest/security" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+  </component>
+</project>
